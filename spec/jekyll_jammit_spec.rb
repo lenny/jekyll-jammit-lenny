@@ -7,6 +7,11 @@ describe 'Jekyll Jammit' do
   let(:config) { Jekyll.configuration(:destination => '_site') }
   let(:site) { Jekyll::Site.new(config) }
   
+  def render_template(liquid)
+    template = Liquid::Template.parse(liquid)
+    template.render({}, { :registers => { :site => site } })
+  end
+  
   describe 'include_js' do
     it 'includes javascript files individually in development' do
       Jekyll::Jammit.configure do |c|
@@ -17,8 +22,7 @@ describe 'Jekyll Jammit' do
           }
         }
       end
-      template = Liquid::Template.parse('{% include_js application.js %}')
-      rendered = template.render({}, { :registers => { :site => site } })
+      rendered = render_template('{% include_js application.js %}')
       rendered.should include_line_matching(/<script src=.*file2.js/)
       rendered.should include_line_matching(/<script src=.*file2.js/)
     end
@@ -32,8 +36,7 @@ describe 'Jekyll Jammit' do
           }
         }
       end
-      template = Liquid::Template.parse('{% include_js application.js %}')
-      rendered = template.render({}, { :registers => { :site => site } })
+      rendered = render_template('{% include_js application.js %}')
       rendered.should include_line_matching(/<script src=.*application.js/)
     end
     
@@ -50,8 +53,7 @@ describe 'Jekyll Jammit' do
           }
         }
       end
-      template = Liquid::Template.parse('{% include_css application.css %}')
-      rendered = template.render({}, { :registers => { :site => site } })
+      rendered = render_template('{% include_css application.css %}')
       rendered.should include_line_matching(/<link href=.*file2.css/)
       rendered.should include_line_matching(/<link href=.*file2.css/)
     end
@@ -65,8 +67,7 @@ describe 'Jekyll Jammit' do
           }
         }
       end
-      template = Liquid::Template.parse('{% include_css application.css %}')
-      rendered = template.render({}, { :registers => { :site => site } })
+      rendered = render_template('{% include_css application.css %}')
       rendered.should include_line_matching(/<link href=.*application.css/)
     end
     
@@ -89,8 +90,7 @@ describe 'Jekyll Jammit' do
           'stylesheets' => { 'foo' => ['_site/stylesheets/file1.css', '_site/stylesheets/file2.css'] }
         }
       end
-      template = Liquid::Template.parse('{% include_css foo.css %}')
-      rendered = template.render({}, { :registers => { :site => site } })
+      rendered = render_template('{% include_css foo.css %}')
       rendered.should include_line_matching(/<link.*media=.*screen"/)
     end
   end
