@@ -3,9 +3,11 @@ require 'spec_helper'
 require 'jekyll'
 require 'jekyll-jammit'
 
+require 'jammit'
+
 describe 'Jekyll Jammit' do
-  let(:config) { Jekyll.configuration(:destination => '_site') }
-  let(:site) { Jekyll::Site.new(config) }
+  let(:jekyll_config) { Jekyll.configuration(:destination => '_site') }
+  let(:site) { Jekyll::Site.new(jekyll_config) }
   
   def render_template(liquid)
     template = Liquid::Template.parse(liquid)
@@ -39,8 +41,6 @@ describe 'Jekyll Jammit' do
       rendered = render_template('{% include_js application.js %}')
       rendered.should include_line_matching(/<script src=.*application.js/)
     end
-    
-    specify 'javascripts are :jekyll_destination_dir/:jammit_package_path/:file.js in production'
   end
   
   describe 'include_css' do
@@ -93,5 +93,18 @@ describe 'Jekyll Jammit' do
       rendered = render_template('{% include_css foo.css %}')
       rendered.should include_line_matching(/<link.*media=.*screen"/)
     end
+  end
+
+  specify 'assets are :jekyll_baseurl/:jammit_package_path/:asset in production' do
+    jekyll_config['base_url'] = '/myapp'
+    Jekyll::Jammit.configure do |c|
+      c.environment = 'production'
+      Jammit.stub(:package_path => 'myassets')
+      c.jammit_config = {
+          'javascripts' => { 'application' => ['_site/javascripts/file1.js'] }
+      }
+    end
+    rendered = render_template('{% include_js application.js %}')
+    rendered.should include_line_matching(/myapp\/myassets\/application\.js/)
   end
 end

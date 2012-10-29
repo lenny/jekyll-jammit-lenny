@@ -7,7 +7,7 @@ module Jekyll
       def render(context)
         @context = context
         if environment == 'production'
-          html "/assets/#{name_with_ext}"
+          html "#{jekyll_base_url}/#{::Jammit.package_path}/#{name_with_ext}"
         else   
           (expanded_assets.map do |asset|
             html "#{path}/#{asset}"
@@ -57,6 +57,10 @@ module Jekyll
       
       def jekyll_destination
         File.basename(jekyll_config['destination'])
+      end
+      
+      def jekyll_base_url
+        jekyll_config['base_url']
       end
     end
   end
