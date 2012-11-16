@@ -25,6 +25,17 @@ Or install it yourself as:
 	{% include_js application %}
     </head>
 
+Somewhere in _plugins/
+
+    Jekyll::ENV = (ENV['JEKYLL_ENV'] || 'development')
+    
+    require 'jekyll-jammit'
+    
+    Jekyll::Jammit.configure do |c|
+      c.environment = ENV['JEKYLL_ENV'] || 'development'
+      c.jammit_config_path = '_config/assets.yml'
+    end
+
 ## Contributing
 
 1. Fork it
@@ -32,5 +43,3 @@ Or install it yourself as:
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-=======
-jekyll-jammit-lenny
