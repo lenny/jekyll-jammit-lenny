@@ -2,6 +2,8 @@
 
 Jammit asset packaging integration for Jekyll
 
+Originally inspired by http://mikeferrier.com/2011/04/29/blogging-with-jekyll-haml-sass-and-jammit/
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -25,7 +27,7 @@ Or install it yourself as:
 	{% include_js application %}
     </head>
 
-Somewhere in _plugins/
+Somewhere in _plugins/ e.g. _plugins/env.rb
 
     Jekyll::ENV = (ENV['JEKYLL_ENV'] || 'development')
     
@@ -35,6 +37,10 @@ Somewhere in _plugins/
       c.environment = ENV['JEKYLL_ENV'] || 'development'
       c.jammit_config_path = '_config/assets.yml'
     end
+    
+## Attributions
+
+
 
 ## Contributing
 
