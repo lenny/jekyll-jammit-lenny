@@ -1,6 +1,6 @@
 # Jekyll::Jammit
 
-TODO: Write a gem description
+Jammit asset packaging integration for Jekyll
 
 ## Installation
 
