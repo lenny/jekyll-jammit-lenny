@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'jekyll-jammit'
+    gem 'jekyll-jammit-lenny'
 
 And then execute:
 
@@ -14,11 +14,16 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install jekyll-jammit
+    $ gem install jekyll-jammit-lenny
 
 ## Usage
 
-TODO: Write usage instructions here
+    <head>
+        ....
+	{% include_css application screen %}
+	{% include_css print print %}
+	{% include_js application %}
+    </head>
 
 ## Contributing
 
