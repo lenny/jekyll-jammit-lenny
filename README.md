@@ -27,21 +27,20 @@ Or install it yourself as:
 	{% include_js application %}
     </head>
 
-Somewhere in _plugins/ e.g. _plugins/env.rb
+Somewhere in _plugins/
 
+    # e.g. _plugins/env.rb
     Jekyll::ENV = (ENV['JEKYLL_ENV'] || 'development')
     
     require 'jekyll-jammit'
     
     Jekyll::Jammit.configure do |c|
       c.environment = ENV['JEKYLL_ENV'] || 'development'
+      
+      # Path to Jammit configuration file. See http://documentcloud.github.com/jammit/
       c.jammit_config_path = '_config/assets.yml'
     end
     
-## Attributions
-
-
-
 ## Contributing
 
 1. Fork it
