@@ -5,27 +5,19 @@ module Jekyll
     class IncludeJsTag < AssetTag
       def initialize(name, markup, tokens)
         super
-        @asset_name = markup.strip.sub(/\.js$/, '')
+        @packages = markup.strip.split(/\s+/)
       end
 
-      def html(src)
-        %{<script src='#{src}' type='text/javascript'></script>}
+      def packages
+        @packages
       end
 
-      def asset_name
-        @asset_name
+      def asset_tag(src)
+        %{<script type="text/javascript" src="#{src}"></script>}
       end
-
-      def asset_type
-        'javascripts'
-      end
-
+      
       def ext
         'js'
-      end
-
-      def path
-        '/javascripts'
       end
     end
   end

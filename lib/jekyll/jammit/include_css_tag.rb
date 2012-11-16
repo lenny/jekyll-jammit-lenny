@@ -7,27 +7,18 @@ module Jekyll
         super
         @asset_name, *@media = markup.strip.split(/\s+/)
         @media << 'screen' if @media.empty?
-        @asset_name.sub!(/\.css$/, '')
       end
 
-      def html(src)
-        %{<link href="#{src}" media="#{@media.join(' ')}" rel="stylesheet" type="text/css" />}
+      def packages
+        [@asset_name]
       end
-
-      def asset_name
-        @asset_name
+      
+      def asset_tag(src)
+        %{<link href="#{src}" media="#{@media.join(' ')}" rel='stylesheet' type='text/css' />}
       end
-
-      def asset_type
-        'stylesheets'
-      end
-
+      
       def ext
         'css'
-      end
-
-      def path
-        '/stylesheets'
       end
     end
   end
